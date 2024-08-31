@@ -1,17 +1,86 @@
 <!DOCTYPE html>
-<html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Bar Example</title>
+  
+  <style>
+    /* Styling for the search input */
+
+    #search-bar {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 7px;
+      border: 1px solid #ccc;
+      width: 12%;
+      box-sizing: border-box;
+     margin-left: 70px;
+    }
+
+    /* Styling for the search results list */
+    #results-list {
+      list-style-type: none;
+      margin: 70px;
+      width: 20%;
+
+      border-radius: 7px;
+    }
+
+    /* Styling for individual list items */
+    #results-list li {
+      padding: 80px;
+      cursor: pointer;
+    }
+
+    /* Hover effect for list items */
+    #results-list li:hover {
+      background-color: #914949;
+      border-radius: 9px;
+    }
+  
+  </style>
+</head>
+<body style="background-color: rgb(39, 180, 180);">
+  <div class="relative">
+    <input 
+      id="search-bar" 
+      class="form-input mt-1 block w-full" 
+      type="text" 
+      placeholder="Search for clothing..."
+    />
+    <ul id="results-list" class="absolute bg-white border w-full mt-1"></ul>
+  </div>
+  
+</body>
 </html>
+
+<script>
+  const searchBar = document.getElementById('search-bar');
+  const resultsList = document.getElementById('results-list');
+
+  const items = [
+    { id: 1, name: 'T-shirt' },
+    { id: 2, name: 'Jeans'},
+    { id: 3, name: 'Jacket' },
+    { id: 4, name: 'Shirt' },
+    { id: 5, name: 'girls-top' },
+    { id: 6, name: 'jeans'},
+    { id: 7, name: 'jacket' },
+    { id: 8, name: 'tshirt' }
+  ];
+
+  searchBar.addEventListener('input', () => {
+    const query = searchBar.value.toLowerCase();
+    resultsList.innerHTML = '';
+    if (query.length > 3) {
+      const results = items.filter(item => item.name.toLowerCase().includes(query));
+      results.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item.name;
+        li.classList.add('p-2');
+        resultsList.appendChild(li);
+      });
+    }
+  });
+</script>
